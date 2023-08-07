@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn" style="position: absolute;">Jumping Button</button>
+    <script>
+        let w = 0
+        let h = 0
+        function JumpButton(){
+            w = getRandomInteger(0, window.innerWidth);
+            h = getRandomInteger(0, window.innerHeight);
+            btn.style.left=w+"px"
+            btn.style.top=h+"px"
+        }
+        function getRandomInteger(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min; //including max
+        }
+        setInterval(JumpButton,1000)
+    </script>
+</body>
+</html>

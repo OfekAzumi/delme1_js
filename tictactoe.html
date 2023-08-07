@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button {
+            width: 150px;
+            height: 150px;
+        }
+
+        table {
+            font-size: 150px;
+            text-indent: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <table>
+            <tr>
+                <td><button id="btn0" onclick="gameMove(0,btn0)"></button></td>
+                <td><button id="btn1" onclick="gameMove(1,btn1)"></button></td>
+                <td><button id="btn2" onclick="gameMove(2,btn2)"></button></td>
+            </tr>
+            <tr>
+                <td><button id="btn3" onclick="gameMove(3,btn3)"></button></td>
+                <td><button id="btn4" onclick="gameMove(4,btn4)"></button></td>
+                <td><button id="btn5" onclick="gameMove(5,btn5)"></button></td>
+            </tr>
+            <tr>
+                <td><button id="btn6" onclick="gameMove(6,btn6)"></button></td>
+                <td><button id="btn7" onclick="gameMove(7,btn7)"></button></td>
+                <td><button id="btn8" onclick="gameMove(8,btn8)"></button></td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        let gameBoard = ['', '', '', '', '', '', '', '', ''];
+        //the board is:
+        //[0,1,2]
+        //[3,4,5]
+        //[6,7,8]
+        function gameMove(i, idName) {
+            if (isGameBoardClean(gameBoard)) { //first step, clean board
+                gameBoard[i] = 'X'
+                idName.innerHTML = 'X'
+            } else { // not the first step
+                if ((CountX(gameBoard) > CountO(gameBoard)) && (gameBoard[i] == '')) {// X had more turns, now it O. and the block is clean.
+                    gameBoard[i] = 'O'
+                    idName.innerHTML = 'O'
+                }
+                else {
+                    if (gameBoard[i] == '') { // O had more turn, now its X. and the block is clean.
+                        gameBoard[i] = 'X'
+                        idName.innerHTML = 'X'
+                    }
+                }
+            }
+            // after placing blocks, checks if has a win combo
+            if (!isGameBoardClean(gameBoard))
+                CheckWinner(gameBoard);
+        }
+        function isGameBoardClean(ar) { //checks if the gameboard is clean
+            let tmp = true
+            for (let i = 0; i < ar.length; i++) {
+                if (ar[i] != '')
+                    tmp = false;
+            }
+            return tmp
+        }
+        function CountX(ar) { //counts the X
+            let c1 = 0;
+            for (let i = 0; i < ar.length; i++) {
+                if (ar[i] == 'X')
+                    c1++
+            }
+            return c1
+        }
+        function CountO(ar) { //count the O
+            let c2 = 0;
+            for (let i = 0; i < ar.length; i++) {
+                if (ar[i] == 'O')
+                    c2++
+            }
+            return c2
+        }
+        function CheckWinner(ar) {
+            //the possible combos are
+            //[0,1,2] [3,4,5] [6,7,8] - line win
+            //[0,3,6] [1,4,7] [2,5,8] - row win
+            //[0,4,8] [2,4,6] - diagonal win
+            if (ar[0] == ar[1] && ar[1] == ar[2] && ar[0] != '' && ar[1] != '' && ar[2] != '')
+                alert("The winner is " + ar[0]);
+            if (ar[3] == ar[4] && ar[4] == ar[5] && ar[3] != '' && ar[4] != '' && ar[5] != '')
+                alert("The winner is " + ar[3]);
+            if (ar[6] == ar[7] && ar[7] == ar[8] && ar[6] != '' && ar[7] != '' && ar[8] != '')
+                alert("The winner is " + ar[6]);
+            //line wins
+            if (ar[0] == ar[3] && ar[3] == ar[6] && ar[0] != '' && ar[3] != '' && ar[6] != '')
+                alert("The winner is " + ar[0]);
+            if (ar[1] == ar[4] && ar[4] == ar[7] && ar[1] != '' && ar[4] != '' && ar[7] != '')
+                alert("The winner is " + ar[1]);
+            if (ar[2] == ar[5] && ar[5] == ar[8] && ar[2] != '' && ar[5] != '' && ar[8] != '')
+                alert("The winner is " + ar[2]);
+            //row wins
+            if (ar[0] == ar[4] && ar[4] == ar[8] && ar[0] != '' && ar[4] != '' && ar[8] != '')
+                alert("The winner is " + ar[0]);
+            if (ar[2] == ar[4] && ar[4] == ar[6] && ar[2] != '' && ar[4] != '' && ar[6] != '')
+                alert("The winner is " + ar[2]);
+            //diagonal win
+        }
+    </script>
+</body>
+
+</html>

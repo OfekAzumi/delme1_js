@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="dis2" style="font-size: 150px;"></div>
+    <script>
+        function startTime() {
+            let today = new Date(); //creates "today"
+            let h = today.getHours();
+            let m = today.getMinutes();
+            let s = today.getSeconds();
+            m = checkTime(m); //add a zero infront of the numbers < 10
+            s = checkTime(s); //we only check the min and sec because hours are 24.
+            dis2.innerHTML = h + ":" + m + ":" + s; // the structure
+        }
+        function checkTime(x) {
+            if (x < 10)
+                x = "0" + x  // add zero in front of numbers < 10
+            return x;
+        }
+        function changeColor(idName) {
+            let r = Math.floor(Math.random() * 256);
+            let g = Math.floor(Math.random() * 256);
+            let b = Math.floor(Math.random() * 256);
+            let color = "rgb(" + r + "," + g + "," + b + ")"
+            dis2.style.color = color;
+        }
+        setInterval(startTime, 1000) //every 1000 milisecond = 1 second
+        setInterval(changeColor, 200)
+    </script>
+</body>
+
+</html>
